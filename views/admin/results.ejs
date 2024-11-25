@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Election Results</title>
+    <link rel="stylesheet" href="/css/results.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Navbar and Sidebar can be included similarly to the dashboard page -->
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <h1>Election Results</h1>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Candidate Name</th>
+                        <th>Votes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% candidateVotes.forEach(candidate => { %>
+                        <tr>
+                            <td><%= candidate.name %></td>
+                            <td><%= candidate.votes %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

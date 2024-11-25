@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="/css/voting.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav>
+        <div class="nav-left">
+            <a href="/vote/voting">Dashboard</a>
+        </div>
+        <div class="nav-right">
+            <form action="/vote/search" method="GET">
+                <input type="text" name="query" placeholder="Search...">
+                <button type="submit">Search</button>
+            </form>
+            <div class="user-icon">
+                <a href="#" class="dropdown-toggle" id="userDropdown" data-toggle="dropdown">   
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/vote/profile">Profile</a>
+                    <a class="dropdown-item" href="/vote/logout">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <h1>Welcome, <%= student.name %>!</h1>
+        <p>Select your candidates below:</p>
+       
+        <% if (error && error !== '')
+         { %> 
+            <div class="error-message"> 
+                <p><%= error %></p> 
+            </div>
+             <% } %>
+
+        <form action="/vote/submit" method="POST">
+            <% for (const position in categorizedCandidates) { %>
+                <fieldset>
+                    <legend><%= position %></legend>
+                    <% categorizedCandidates[position].forEach(candidate => { %>
+                        <div class="card">
+                            <img src="/uploads/<%= candidate.photo %>" alt="<%= candidate.name %>">
+                            <h2><%= candidate.name %></h2>
+                            <input type="radio" name="vote_<%= position %>" value="<%= candidate.id %>" required>
+                        </div>
+                    <% }); %>
+                </fieldset>
+            <% } %>
+            <button type="submit">Submit Vote</button>
+        </form>
+    </div>
+
+    <script> 
+        document.addEventListener('DOMContentLoaded', () => {
+             const dropdownToggle = document.getElementById('userDropdown'); 
+             const dropdownMenu = document.getElementById('dropdownMenu'); 
+             dropdownToggle.addEventListener('click', (event) => { event.preventDefault(); 
+                dropdownMenu.classList.toggle('show'); }); 
+                document.addEventListener('click', (event) => { if (!dropdownToggle.contains(event.target)) 
+                    { dropdownMenu.classList.remove('show'); 
+                } 
+            }); 
+        }); 
+    </script>
+</body>
+</html>

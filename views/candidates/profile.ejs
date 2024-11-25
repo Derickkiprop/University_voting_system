@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidate Profile</title>
+    <link rel="stylesheet" href="/css/profile.css">
+</head>
+<body>
+    <h1>Your Profile</h1>
+    <img src="/uploads/<%= candidate.photo %>" alt="<%= candidate.name %>">
+    <form action="/vote/profile" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="<%= candidate.name %>" required>
+        
+        <label for="position">Position:</label>
+        <input type="text" id="position" name="position" value="<%= candidate.position %>" required>
+        
+        <label for="photo">Photo URL:</label>
+        <input type="text" id="photo" name="photo" value="<%= candidate.photo %>" required readonly>
+        
+        <button type="submit">Update Profile</button>
+    </form>
+    <a href="/vote/dashboard">Back to Dashboard</a>
+</body>
+</html>

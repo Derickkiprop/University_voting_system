@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <link rel="stylesheet" href="/css/search.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-left">
+            <a href="/vote/dashboard">Dashboard</a>
+        </div>
+        <div class="nav-right">
+            <form action="/vote/search" method="GET">
+                <input type="text" name="query" placeholder="Search..." value="<%= query %>">
+                <button type="submit">Search</button>
+            </form>
+            <div class="user-icon">
+                <a href="/vote/profile"><img src="/uploads/<%= candidate.photo %>" alt="User Icon"></a>
+                <a href="/vote/logout">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <h2>Search Results for "<%= query %>"</h2>
+        <% if (results.length > 0) { %>
+            <ul>
+                <% results.forEach(result => { %>
+                    <li>
+                        <img src="/uploads/<%= result.photo %>" alt="<%= result.name %>">
+                        <p>Name: <%= result.name %></p>
+                        <p>Position: <%= result.position %></p>
+                        <p>Votes: <%= result.vote_count %></p>
+                    </li>
+                <% }) %>
+            </ul>
+        <% } else { %>
+            <p>No results found for "<%= query %>".</p>
+        <% } %>
+    </div>
+</body>
+</html>

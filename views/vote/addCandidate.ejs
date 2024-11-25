@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Candidate</title>
+    <link rel="stylesheet" href="/css/voting.css">
+</head>
+<body>
+    <h1>Add a New Candidate</h1>
+    <form action="/vote/add" method="POST" enctype="multipart/form-data">
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="text" name="position" placeholder="Position" required>
+        <input type="file" name="photo" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Add Candidate</button>
+    </form>
+</body>
+</html>

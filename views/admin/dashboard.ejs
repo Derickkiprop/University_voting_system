@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/css/dash.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="logo">
+                <img src="/path/to/logo.png" alt="Admin Panel Logo">
+            </div>
+            <div class="search-bar">
+                <form action="/admin/search" method="GET">
+                    <input type="text" name="query" placeholder="Search...">
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+            <div class="user-dropdown">
+                <a href="#" class="dropdown-toggle" id="userDropdown">Profile</a>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <a class="dropdown-item" href="/admin/profile">View Profile</a>
+                    <a class="dropdown-item" href="/admin/updateProfile">Update Profile</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <h2>Admin Panel</h2>
+            <ul>
+                <li><a href="/admin/dashboard">Dashboard</a></li>
+                <li><a href="/admin/candidates">Manage Candidates</a></li>
+                <li><a href="/admin/students">Manage Students</a></li>
+                <li><a href="/admin/results">Results</a></li> <!-- Added Results link -->
+                <li><a href="/admin/logout" class="logout">Logout</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <h1>Welcome, <%= admin.username %>!</h1>
+
+            <!-- Dashboard Cards -->
+            <div class="dashboard-cards">
+                <div class="card">
+                    <h2>Total Candidates</h2>
+                    <p><%= totalCandidates %></p>
+                </div>
+                <div class="card">
+                    <h2>Total Students</h2>
+                    <p><%= totalStudents %></p>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="charts">
+                <div class="card">
+                    <h2>Voting Participation</h2>
+                    <canvas id="votingChart" width="400" height="400"></canvas>
+                </div>
+                <div class="card">
+                    <h2>Votes Distribution</h2>
+                    <canvas id="votesChart" width="400" height="400"></canvas>
+                </div>
+            </div>
+
+            <!-- Results Table Section -->
+            <div class="results-table">
+                <h2>Candidate Results</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Candidate Name</th>
+                            <th>Votes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% candidateVotes.forEach(candidate => { %>
+                            <tr>
+                                <td><%= candidate.name %></td>
+                                <td><%= candidate.votes %></td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dropdown Toggle
+        document.addEventListener('DOMContentLoaded', () => {
+            const dropdownToggle = document.getElementById('userDropdown');
+            const dropdownMenu = document.getElementById('dropdownMenu');
+
+            dropdownToggle.addEventListener('click', (event) => {
+                event.preventDefault();
+                dropdownMenu.classList.toggle('show');
+            });
+
+            document.addEventListener('click', (event) => {
+                if (!dropdownToggle.contains(event.target)) {
+                    dropdownMenu.classList.remove('show');
+                }
+            });
+        });
+
+        // Voting Participation Chart
+        const votingCtx = document.getElementById('votingChart').getContext('2d');
+        const participationData = {
+            labels: ['Voted', 'Not Voted'],
+            datasets: [{
+                data: [<%= votedCount %>, <%= notVotedCount %>],
+                backgroundColor: ['#4CAF50', '#FF5252'],
+            }]
+        };
+        new Chart(votingCtx, {
+            type: 'pie',
+            data: participationData,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'top' },
+                    title: { display: true, text: 'Voting Participation' }
+                }
+            }
+        });
+
+        // Votes Distribution Chart
+        const votesCtx = document.getElementById('votesChart').getContext('2d');
+        const candidateVotes = <%- JSON.stringify(candidateVotes) %>;
+        const labels = candidateVotes.map(vote => vote.name);
+        const voteCounts = candidateVotes.map(vote => vote.votes);
+        new Chart(votesCtx, {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: voteCounts,
+                    backgroundColor: [
+                        '#FF6384', '#36A2EB', '#FFCE56', '#4CAF50', '#FF5252', '#8E44AD'
+                    ],
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'top' },
+                    title: { display: true, text: 'Votes Distribution' }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

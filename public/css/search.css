@@ -1,0 +1,125 @@
+/* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+/* Navigation bar styling */
+nav {
+    background-color: #333;
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav .nav-left a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+    margin-left: 20px;
+}
+
+nav .nav-right {
+    display: flex;
+    align-items: center;
+}
+
+nav .nav-right form {
+    display: flex;
+    margin-right: 20px;
+}
+
+nav .nav-right input {
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    width: 200px;
+}
+
+nav .nav-right button {
+    padding: 8px 12px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+nav .nav-right button:hover {
+    background-color: #218838;
+}
+
+nav .user-icon a {
+    margin-left: 15px;
+    color: white;
+    text-decoration: none;
+}
+
+nav .user-icon img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+/* Main content area */
+.main-content {
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 900px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.main-content h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.main-content ul {
+    list-style-type: none;
+}
+
+.main-content li {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding: 15px 0;
+}
+
+.main-content li:last-child {
+    border-bottom: none;
+}
+
+.main-content li img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.main-content li p {
+    font-size: 1rem;
+    margin: 5px 0;
+}
+
+/* Styling for when no results are found */
+.main-content p {
+    font-size: 1rem;
+    color: #777;
+    text-align: center;
+    margin-top: 20px;
+}

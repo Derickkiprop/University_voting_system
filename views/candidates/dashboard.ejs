@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidate Dashboard</title>
+    <link rel="stylesheet" href="/css/dash.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav>
+        <div class="nav-left">
+            <a href="/vote/dashboard"><%= candidate.name %></a>
+        </div>
+        <div class="nav-right">
+            <form action="/vote/search" method="GET">
+                <input type="text" name="query" placeholder="Search...">
+                <button type="submit">Search</button>
+            </form>
+            <div class="user-icon">
+                <a href="/vote/profile"><img src="/uploads/<%= candidate.photo %>" alt="User Icon"></a>
+                <a href="/vote/logout">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="card">
+            <h2>Total Votes</h2>
+            <p><%= candidate.vote_count %></p>
+        </div>
+        <canvas id="votesChart" width="400" height="400"></canvas>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => { 
+            const ctx = document.getElementById('votesChart').getContext('2d');
+             // Safely parse the candidateVotes data 
+             const candidateVotes = <%- JSON.stringify(candidateVotes) %>; 
+             console.log(candidateVotes); 
+             // Debugging: Ensure data is correct 
+             // Extract labels and data from the parsed data
+              const labels = candidateVotes.map(vote => vote.name); 
+              const voteCounts = candidateVotes.map(vote => vote.votes); 
+              // Define the chart data 
+              const data = { 
+                labels: labels, 
+                datasets: [{ label: 'Vote Count', 
+                data: voteCounts, 
+                backgroundColor: [ 
+                'rgba(255, 99, 132, 0.2)', 
+                'rgba(54, 162, 235, 0.2)', 
+                'rgba(255, 206, 86, 0.2)', 
+                'rgba(75, 192, 192, 0.2)', 
+                'rgba(153, 102, 255, 0.2)', 
+                'rgba(255, 159, 64, 0.2)' ],
+                 borderColor: [ 
+                 'rgba(255, 99, 132, 1)',
+                 'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)', 
+                  'rgba(75, 192, 192, 1)', 
+                  'rgba(153, 102, 255, 1)',
+                   'rgba(255, 159, 64, 1)' ],
+                 borderWidth: 1 }] 
+                }; 
+                // Create the chart 
+                const votesChart = new Chart(ctx, { 
+                    type: 'pie',
+                     data: data,
+                      options: { responsive: true, plugins:
+                         { legend: { 
+                            position: 'top', },
+                          title: { 
+                            display: true,
+                             text: 'Votes Distribution' } 
+                            
+                            } 
+                        } 
+                    });
+                 console.log('Chart initialized successfully.'); });
+        
+    </script>
+</body>
+</html>
