@@ -36,13 +36,14 @@ This project demonstrates how to build a dynamic web app using:
 To get started with MyAwesomeProject, follow these steps:
 
 1. **Clone the repository**:
-
    
-2. **Navigate to the project folder**:
+   https://github.com/Derickkiprop/University_voting_system.git
+
+3. **Navigate to the project folder**:
    
    cd universityvoting
 
-3. **Install dependencies**:
+4. **Install dependencies**:
 
 npm install
 
