@@ -66,7 +66,7 @@ Import the SQL file:
 you can run the following command to import the schema from the database.sql file:
 
 
-mysql -u yourusername -p myawesomeproject < config/database.sql
+mysql -u yourusername -p universityvoting < config/database.sql
 
 
 Replace yourusername with your MySQL username, and university_voting with the name of the database you just created.
