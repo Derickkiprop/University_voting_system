@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Candidate</title>
+    <link rel="stylesheet" href="/css/updatecand.css">
+</head>
+<body>
+    <h1>Update Candidate</h1>
+    <% if (error) { %>
+        <p class="error"><%= error %></p>
+    <% } %>
+    <form action="/admin/updateCandidate/<%= candidate.id %>" method="POST" enctype="multipart/form-data">
+        <input type="text" name="name" placeholder="Name" value="<%= candidate.name %>" required>
+        <input type="text" name="position" placeholder="Position" value="<%= candidate.position %>" required>
+        <input type="file" name="photo">
+        <button type="submit">Update Candidate</button>
+    </form>
+</body>
+</html>

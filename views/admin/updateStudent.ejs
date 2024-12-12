@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Student</title>
+    <link rel="stylesheet" href="/css/updatestu.css">
+</head>
+<body>
+    <h1>Update Student</h1>
+    <% if (error) { %>
+        <p class="error"><%= error %></p>
+    <% } %>
+    <form action="/admin/updateStudent/<%= student.id %>" method="POST">
+        <input type="text" name="name" placeholder="Name" value="<%= student.name %>" required>
+        <input type="email" name="email" placeholder="Email" value="<%= student.email %>" required>
+        <input type="text" name="department" placeholder="Department" value="<%= student.department %>" required>
+        <input type="text" name="regNo" placeholder="Reg No" value="<%= student.regNo %>" required>
+        <input type="password" name="password" placeholder="Password" readonly required>
+        <button type="submit">Update Student</button>
+    </form>
+</body>
+</html>

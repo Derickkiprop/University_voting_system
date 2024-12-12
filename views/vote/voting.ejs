@@ -39,21 +39,22 @@
             </div>
              <% } %>
 
-        <form action="/vote/submit" method="POST">
-            <% for (const position in categorizedCandidates) { %>
-                <fieldset>
-                    <legend><%= position %></legend>
-                    <% categorizedCandidates[position].forEach(candidate => { %>
-                        <div class="card">
-                            <img src="/uploads/<%= candidate.photo %>" alt="<%= candidate.name %>">
-                            <h2><%= candidate.name %></h2>
-                            <input type="radio" name="vote_<%= position %>" value="<%= candidate.id %>" required>
-                        </div>
-                    <% }); %>
-                </fieldset>
-            <% } %>
-            <button type="submit">Submit Vote</button>
-        </form>
+             <form action="/vote/submit" method="POST">
+                <% for (const position in categorizedCandidates) { %>
+                    <fieldset>
+                        <legend><%= position %></legend>
+                        <% categorizedCandidates[position].forEach(candidate => { %>
+                            <div class="card">
+                                <img src="/uploads/<%= candidate.photo %>" alt="<%= candidate.name %>">
+                                <h2><%= candidate.name %></h2>
+                                <input type="radio" name="vote_<%= position %>" value="<%= candidate.id %>" required>
+                            </div>
+                        <% }); %>
+                    </fieldset>
+                <% } %>
+                <button type="submit">Submit Vote</button>
+            </form>
+            
     </div>
 
     <script> 

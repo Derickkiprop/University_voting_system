@@ -11,17 +11,18 @@ class Candidate {
             }
          }
 
-  // Find all candidates
-  static async findAll() {
-    try {
-      const query = 'SELECT id, name, position, photo FROM candidates';
+ // Find all approved candidates
+static async findAll() {
+  try {
+      const query = 'SELECT id, name, position, photo FROM candidates WHERE status = "approved"';
       const [rows] = await db.query(query);
       return rows;
-    } catch (error) {
+  } catch (error) {
       console.error("Error fetching candidates:", error.message);
       throw new Error("Database error during candidate lookup");
-    }
   }
+}
+
 
   // Get vote count
   static async getVoteCount() {

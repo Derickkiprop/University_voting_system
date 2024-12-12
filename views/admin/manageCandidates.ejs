@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Candidates</title>
+    <link rel="stylesheet" href="/css/managecand.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Navbar and Sidebar can be included similarly to the dashboard page -->
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+            <h1>Manage Candidates</h1>
+            <a href="/admin/dashboard" class="btn btn-dashboard">Dashboard</a>
+         </div>
+
+            <% if (error) { %>
+                <p class="error"><%= error %></p>
+            <% } %>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Position</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% candidates.forEach(candidate => { %>
+                        <tr>
+                            <td><%= candidate.id %></td>
+                            <td><%= candidate.name %></td>
+                            <td><%= candidate.position %></td>
+                            <td><%= candidate.status %></td>
+                            <td>
+                                <form action="/admin/updateCandidate/<%= candidate.id %>" method="GET" style="display:inline;">
+                                    <button type="submit" class="btn btn-update">Update</button>
+                                </form>
+                                <form action="/admin/deleteCandidate/<%= candidate.id %>" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this candidate?')">
+                                    <button type="submit" class="btn btn-delete">Delete</button>
+                                </form>
+                                <% if (candidate.status !== 'approved') { %>
+                                    <form action="/admin/approveCandidate/<%= candidate.id %>" method="POST" style="display:inline;">
+                                        <button type="submit" class="btn btn-approve">Approve</button>
+                                    </form>
+                                <% } %>
+                                <% if (candidate.status !== 'declined') { %>
+                                    <form action="/admin/declineCandidate/<%= candidate.id %>" method="POST" style="display:inline;">
+                                        <button type="submit" class="btn btn-decline">Decline</button>
+                                    </form>
+                                <% } %>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

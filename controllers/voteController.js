@@ -1,4 +1,5 @@
 const Candidate = require('../models/candidate');
+
 const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
@@ -38,7 +39,7 @@ const db = require('../config/db');
         const hashedPassword = await bcrypt.hash(password, 10); 
         // Call the model method to add the new candidate
          await Candidate.create({ name, position, photo, password: hashedPassword }); 
-         res.redirect('/vote/voting'); } 
+         res.redirect('/vote/clogin'); } 
          catch (err) { console.error('Error adding new candidate:', err); 
             res.status(500).send('Error adding new candidate'); 
         } 
@@ -95,70 +96,84 @@ exports.login = async (req, res) => {
                     } 
                 };
 
-// Show the voting page 
-exports.showVotingPage = async (req, res) => { 
+// Show the voting page
+exports.showVotingPage = async (req, res) => {
     try {
-         const candidates = await Candidate.findAll();
-         const student = req.session.user;
-         // Group candidates by position 
-         const categorizedCandidates = candidates.reduce((acc, candidate) => { 
-            if (!acc[candidate.position])
-                 { acc[candidate.position] = []; 
-            } 
-            acc[candidate.position].push(candidate); 
-            return acc; 
-        }, {});
-         res.render('vote/voting', { categorizedCandidates , student, error: '' });
-         } catch (error) {
-             res.status(500).json({ message: 'Error fetching candidates', error }); 
-            } 
-        };
+        // Fetch only approved candidates
+        const candidates = await Candidate.findAll();
 
-        
-        // Handle vote submission
-       exports.submitVote = async (req, res) => {
-            const studentId = req.session.user.id;
-            const votes = req.body;
-        
-            try {
-                for (const position in votes) {
-                    if (votes.hasOwnProperty(position)) {
-                        const candidateId = votes[position];
-        
-                        // Check if the student has already voted for this position
-                        const [rows] = await db.execute(
-                            'SELECT * FROM student_votes WHERE student_id = ? AND position = ?',
-                            [studentId, position]
-                        );
-                        if (rows.length > 0) {
-                            return res.status(400).render('vote/voting', {
-                                student: req.session.user,
-                                error: `You have already voted for the position: ${position}`,
-                                categorizedCandidates: []
-                            });
-                        }
-        
-                        // Insert the vote into the student_votes table
-                        await db.execute(
-                            'INSERT INTO student_votes (student_id, candidate_id, position) VALUES (?, ?, ?)',
-                            [studentId, candidateId, position]
-                        );
-        
-                        // Update the vote count for the candidate
-                        await Candidate.updateVoteCount(candidateId);
-                    }
-                }
-                res.redirect('/vote/voting');
-            } catch (error) {
-                console.error('Error submitting vote:', error.message);
-                res.status(500).render('vote/voting', {
-                    student: req.session.user,
-                    error: 'Error submitting vote',
-                    categorizedCandidates: []
-                });
+        // Get the logged-in student
+        const student = req.session.user;
+
+        // Group candidates by position
+        const categorizedCandidates = candidates.reduce((acc, candidate) => {
+            if (!acc[candidate.position]) {
+                acc[candidate.position] = [];
             }
-        };
-        
+            acc[candidate.position].push(candidate);
+            return acc;
+        }, {});
+
+        // Render the voting page with the categorized candidates
+        res.render('vote/voting', { categorizedCandidates, student, error: '' });
+
+    } catch (error) {
+        console.error('Error fetching candidates:', error.message);
+        res.status(500).json({ message: 'Error fetching candidates', error });
+    }
+};
+
+
+ // Handle vote submission
+exports.submitVote = async (req, res) => {
+        const studentId = req.session.user.id;
+        const votes = req.body;
+    
+        console.log('Votes submitted:', votes); // Log the submitted form data
+    
+        try {
+            for (const position in votes) {
+                if (votes.hasOwnProperty(position)) {
+                    const candidateId = votes[position];
+                    console.log(`Processing vote for position: ${position}, candidateId: ${candidateId}`); // Debug log
+    
+                    // Check if the student has already voted for this position
+                    const [rows] = await db.execute(
+                        'SELECT * FROM student_votes WHERE student_id = ? AND position = ?',
+                        [studentId, position]
+                    );
+                    if (rows.length > 0) {
+                        console.log(`Already voted for position: ${position}`); // Debug log
+                        return res.status(400).render('vote/voting', {
+                            student: req.session.user,
+                            error: `You have already voted for the position: ${position}`,
+                            categorizedCandidates: []
+                        });
+                    }
+    
+                    // Insert the vote into the student_votes table
+                    console.log('Inserting vote:', { studentId, candidateId, position }); // Debug log
+                    await db.execute(
+                        'INSERT INTO student_votes (student_id, candidate_id, position) VALUES (?, ?, ?)',
+                        [studentId, candidateId, position]
+                    );
+    
+                    // Update the vote count for the candidate
+                    console.log('Updating vote count for candidateId:', candidateId); // Debug log
+                    await Candidate.updateVoteCount(candidateId);
+                }
+            }
+            res.redirect('/vote/voting');
+        } catch (error) {
+            console.error('Error submitting vote:', error.message);
+            res.status(500).render('vote/voting', {
+                student: req.session.user,
+                error: 'Error submitting vote',
+                categorizedCandidates: []
+            });
+        }
+    };
+    
 
     // Show the candidate dashboard 
     exports.showDashboard = async (req, res) => { 

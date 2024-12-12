@@ -4,33 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Election Results</title>
-    <link rel="stylesheet" href="/css/results.css">
+    <link rel="stylesheet" href="/css/result.css">
 </head>
 <body>
     <div class="container">
-        <!-- Navbar and Sidebar can be included similarly to the dashboard page -->
+        <h1>Election Results</h1>
         
-        <!-- Main Content -->
-        <div class="main-content">
-            <h1>Election Results</h1>
+        <!-- Button to go back to the dashboard -->
+        <a href="/admin/dashboard">
+            <button class="back-button">Back to Dashboard</button>
+        </a>
 
-            <table>
-                <thead>
+        <table>
+            <thead>
+                <tr>
+                    <th>Candidate Name</th>
+                    <th>Position</th>
+                    <th>Votes</th>
+                    <th>Winner</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% let winnerDeclared = false; %>
+                <% candidates.forEach(candidate => { %>
                     <tr>
-                        <th>Candidate Name</th>
-                        <th>Votes</th>
+                        <td><%= candidate.name %></td>
+                        <td><%= candidate.position %></td>
+                        <td><%= candidate.vote_count %></td>
+                        <td>
+                            <% if (!winnerDeclared && candidate.vote_count === maxVotes) { %>
+                                Winner
+                                <% winnerDeclared = true; %>
+                            <% } else { %>
+                                -
+                            <% } %>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    <% candidateVotes.forEach(candidate => { %>
-                        <tr>
-                            <td><%= candidate.name %></td>
-                            <td><%= candidate.votes %></td>
-                        </tr>
-                    <% }); %>
-                </tbody>
-            </table>
-        </div>
+                <% }); %>
+            </tbody>
+        </table>
     </div>
 </body>
 </html>

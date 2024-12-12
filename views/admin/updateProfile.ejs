@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Admin Profile</title>
+    <link rel="stylesheet" href="/css/adminprofile.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-left">
+            <a href="/admin/dashboard">Dashboard</a>
+        </div>
+        <div class="nav-right">
+            <div class="user-icon">
+                <a href="#" class="dropdown-toggle" id="userDropdown" data-toggle="dropdown">
+                    <%= admin.username %>
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/admin/profile">Profile</a>
+                    <a class="dropdown-item" href="/admin/logout">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <h1>Update Profile</h1>
+
+        <form action="/admin/profile" method="POST">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" value="<%= admin.username %>" required>
+
+            <label for="password">New Password (Leave blank to keep current password):</label>
+            <input type="password" id="password" name="password" placeholder="Enter new password (optional)">
+
+        <button type="submit">Update Profile</button>
+        </form>
+
+        <% if (error) { %>
+            <div class="error-message">
+                <p><%= error %></p>
+            </div>
+        <% } %>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const dropdownToggle = document.getElementById('userDropdown');
+            const dropdownMenu = document.getElementById('dropdownMenu');
+            dropdownToggle.addEventListener('click', (event) => {
+                event.preventDefault();
+                dropdownMenu.classList.toggle('show');
+            });
+            document.addEventListener('click', (event) => {
+                if (!dropdownToggle.contains(event.target)) {
+                    dropdownMenu.classList.remove('show');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

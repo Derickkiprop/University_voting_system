@@ -21,43 +21,35 @@ body {
 .container {
     display: flex;
     gap: 20px; /* Space between image and form */
-    align-items: stretch; /* Ensure both items stretch to the same height */
+    align-items: center;
 }
 
 /* Image container styling */
 .image-container {
     flex: 1;
-    max-width: 400px; /* Ensure the image doesn't get too large */
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 /* Image styling */
 .image-container img {
     width: 100%; /* Match the size of the form */
-    height: 100%; /* Match the height of the form */
-    object-fit: cover; /* Ensure the image covers the container without stretching */
+    height: auto;
+    max-width: 400px; /* Ensure the image doesn't get too large */
 }
 
 /* Form container styling */
 .form-container {
-    flex: 1;
     background-color: #6bbde2;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 25px 30px;
     width: 100%;
     max-width: 400px; /* Ensure the form doesn't get too large */
-    height: auto; /* Ensure the height matches the image container */
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 }
 
 /* Input fields */
 input[type="text"],
+input[type="file"],
 input[type="password"] {
     width: 100%;
     padding: 10px 15px;
@@ -112,13 +104,5 @@ button:hover {
     input,
     button {
         font-size: 14px;
-    }
-
-    .form-container {
-        height: auto; /* Allow form height to adjust naturally on smaller screens */
-    }
-
-    .image-container img {
-        height: auto; /* Remove height restriction on smaller screens */
     }
 }

@@ -1,43 +1,119 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+/* General reset */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #438cfa; /* Light blue background */
+    color: #333;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-}
-
-h1 {
-    text-align: center;
-}
-
-form {
-    background: white;
+    min-height: 100vh;
     padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-input {
+/* Container styling */
+.container {
+    display: flex;
+    gap: 10px; /* Reduced space between image and form */
+    align-items: stretch; /* Ensure both items stretch to the same height */
+    justify-content: center; /* Move both sections towards the center */
+}
+
+/* Image section styling */
+.image-section {
+    flex: 0 1 300px; /* Adjust the flex property to control the size */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Image styling */
+.image-section img {
+    width: 100%; /* Match the size of the form */
+    height: 100%; /* Match the height of the form */
+    object-fit: cover; /* Ensure the image covers the container without stretching */
+}
+
+/* Login section styling */
+.login-section {
+    flex: 0 1 300px; /* Adjust the flex property to control the size */
+    background-color: #6bbde2;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 25px 30px;
     width: 100%;
-    padding: 10px;
+    max-width: 300px; /* Ensure the form doesn't get too large */
+    height: auto; /* Ensure the height matches the image section */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Input fields */
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px 15px;
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease-in-out;
 }
 
+/* Input focus effect */
+input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Submit button */
 button {
     width: 100%;
-    padding: 10px;
-    background: #007bff;
-    color: white;
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 10px 15px;
+    margin-top: 15px;
     border: none;
     border-radius: 5px;
+    font-size: 16px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
+/* Button hover effect */
 button:hover {
-    background: #0056b3;
+    background-color: #0056b3;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 480px) {
+    .container {
+        flex-direction: column;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    input,
+    button {
+        font-size: 14px;
+    }
+
+    .login-section {
+        height: auto; /* Allow form height to adjust naturally on smaller screens */
+    }
+
+    .image-section img {
+        height: auto; /* Remove height restriction on smaller screens */
+    }
 }

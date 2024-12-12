@@ -6,13 +6,15 @@
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="/css/dash.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Include Font Awesome for User Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="container">
         <!-- Navbar -->
         <nav class="navbar">
             <div class="logo">
-                <img src="/path/to/logo.png" alt="Admin Panel Logo">
+                <img src="/img/admin logo.jpg" alt="Admin Panel Logo">
             </div>
             <div class="search-bar">
                 <form action="/admin/search" method="GET">
@@ -20,11 +22,16 @@
                     <button type="submit">Search</button>
                 </form>
             </div>
-            <div class="user-dropdown">
-                <a href="#" class="dropdown-toggle" id="userDropdown">Profile</a>
-                <div class="dropdown-menu" id="dropdownMenu">
-                    <a class="dropdown-item" href="/admin/profile">View Profile</a>
-                    <a class="dropdown-item" href="/admin/updateProfile">Update Profile</a>
+            <div class="navbar-right">
+                <!-- Welcome Message and User Icon Dropdown -->
+                <span class="welcome-message"><%= admin.username %></span>
+                <div class="user-dropdown">
+                    <!-- User Icon -->
+                    <i class="fas fa-user-circle" id="userIcon" style="font-size: 30px; cursor: pointer;"></i>
+                    <div class="dropdown-menu" id="dropdownMenu">
+                        <a class="dropdown-item" href="/admin/profile">Profile</a>
+                        <a class="dropdown-item" href="/admin/profile">Update Profile</a>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -43,7 +50,7 @@
 
         <!-- Main Content -->
         <div class="main-content">
-            <h1>Welcome, <%= admin.username %>!</h1>
+            <h1>Admin Dashboard</h1>
 
             <!-- Dashboard Cards -->
             <div class="dashboard-cards">
@@ -93,18 +100,18 @@
     </div>
 
     <script>
-        // Dropdown Toggle
+        // Dropdown Toggle for User Icon
         document.addEventListener('DOMContentLoaded', () => {
-            const dropdownToggle = document.getElementById('userDropdown');
+            const userIcon = document.getElementById('userIcon');
             const dropdownMenu = document.getElementById('dropdownMenu');
 
-            dropdownToggle.addEventListener('click', (event) => {
+            userIcon.addEventListener('click', (event) => {
                 event.preventDefault();
                 dropdownMenu.classList.toggle('show');
             });
 
             document.addEventListener('click', (event) => {
-                if (!dropdownToggle.contains(event.target)) {
+                if (!userIcon.contains(event.target)) {
                     dropdownMenu.classList.remove('show');
                 }
             });

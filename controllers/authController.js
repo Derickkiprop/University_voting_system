@@ -27,7 +27,8 @@ exports.register = async (req, res) => {
         };
 
         await Student.create(newStudent);
-        res.status(201).json({ message: 'Student registered successfully', student: newStudent });
+        res.redirect('/auth/login');
+        // res.status(201).json({ message: 'Student registered successfully', student: newStudent });
     } catch (error) {
         res.status(500).json({ message: 'Error registering student', error });
     }

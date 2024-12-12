@@ -1,50 +1,76 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    background-color: #7A2048; /* Changed background color */
 }
 
 .container {
-    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
     padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.image-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-container img {
+    max-width: 80%;
+    height: auto;
+    margin-right:10px;
+}
+
+.login-container {
+    flex: 1;
     max-width: 400px;
-    width: 100%;
-    text-align: center;
+    margin: 0 auto;
 }
 
 h1 {
-    margin-bottom: 20px;
+    color: #333;
 }
 
-input[type="text"], input[type="email"], input[type="password"] {
-    width: calc(100% - 20px);
+.error-message {
+    color: red;
+    margin-bottom: 10px;
+}
+
+input[type="text"], input[type="password"] {
+    width: 100%;
     padding: 10px;
     margin: 10px 0;
+    box-sizing: border-box;
 }
 
 button {
     width: 100%;
     padding: 10px;
-    background: #007bff;
+    background-color: #00796b;
     color: white;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
-    margin-top: 10px;
 }
 
 button:hover {
-    background: #0056b3;
+    background-color: #004d40;
 }
 
-.error-message {
-    color: red;
-    margin-bottom: 20px;
+p {
+    margin-top: 20px;
+    text-align: center;
+}
+
+a {
+    color: #00796b;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
 }

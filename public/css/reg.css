@@ -20,36 +20,36 @@ body {
 /* Container styling */
 .container {
     display: flex;
-    gap: 20px; /* Space between image and form */
+    gap: 10px; /* Space between image and form */
     align-items: stretch; /* Ensure both items stretch to the same height */
+    justify-content: center;
 }
 
-/* Image container styling */
-.image-container {
-    flex: 1;
-    max-width: 400px; /* Ensure the image doesn't get too large */
+/* Image section styling */
+.image-section {
+    flex: 0 1 300px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 /* Image styling */
-.image-container img {
-    width: 100%; /* Match the size of the form */
-    height: 100%; /* Match the height of the form */
+.image-section img {
+    width: 100%; /* Full width of the container */
+    height: 100%; /* Maintain aspect ratio */
     object-fit: cover; /* Ensure the image covers the container without stretching */
 }
 
-/* Form container styling */
-.form-container {
-    flex: 1;
+/* Form section styling */
+.form-section {
+    flex: 0 1 300px;
     background-color: #6bbde2;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 25px 30px;
     width: 100%;
-    max-width: 400px; /* Ensure the form doesn't get too large */
-    height: auto; /* Ensure the height matches the image container */
+    max-width: 300px; /* Ensure the form doesn't get too large */
+    height: auto; /* Adjust height based on content */
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -58,6 +58,7 @@ body {
 
 /* Input fields */
 input[type="text"],
+input[type="email"],
 input[type="password"] {
     width: 100%;
     padding: 10px 15px;
@@ -67,11 +68,6 @@ input[type="password"] {
     font-size: 16px;
     outline: none;
     transition: border-color 0.3s ease-in-out;
-}
-
-/* File input field styling */
-input[type="file"] {
-    padding: 5px 10px;
 }
 
 /* Input focus effect */
@@ -114,11 +110,11 @@ button:hover {
         font-size: 14px;
     }
 
-    .form-container {
+    .form-section {
         height: auto; /* Allow form height to adjust naturally on smaller screens */
     }
 
-    .image-container img {
+    .image-section img {
         height: auto; /* Remove height restriction on smaller screens */
     }
 }

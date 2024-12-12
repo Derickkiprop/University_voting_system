@@ -32,7 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.get("/", (req, res) => {
-    res.send("Welcome to the Kenya Methodist University Voting System");
+    res.render('index');
   });
 
 // Start server

@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f4f8; /* A soft, light blue background color */
+    background-color: #acc6e0; /* A soft, light blue background color */
     margin: 0;
     padding: 0;
     display: flex;
@@ -11,6 +11,12 @@ body {
     display: flex;
     flex: 1;
 }
+
+.logo img {
+    width: 100px;  /* Adjust the width as needed */
+    height: auto;
+}
+
 
 .navbar {
     display: flex;
@@ -205,4 +211,56 @@ body {
 .navbar .user-dropdown .dropdown-item:hover {
     background-color: #007bff;
     color: white;
+}
+
+/* Add to dash.css */
+.navbar-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 20px; /* Adds space between the elements */
+}
+
+.welcome-message {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.user-dropdown {
+    position: relative;
+}
+
+.dropdown-toggle {
+    cursor: pointer;
+    font-size: 16px;
+    text-decoration: none;
+    color: #333;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 10px;
+    width: 200px;
+    z-index: 100;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+.dropdown-item {
+    text-decoration: none;
+    color: #333;
+    padding: 8px 10px;
+    display: block;
+}
+
+.dropdown-item:hover {
+    background-color: #f1f1f1;
 }
