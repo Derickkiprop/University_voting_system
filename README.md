@@ -33,7 +33,7 @@ This project demonstrates how to build a dynamic web app using:
 
  ## Installation
 
-To get started with MyAwesomeProject, follow these steps:
+To get started with University_voting_system, follow these steps:
 
 1. **Clone the repository**:
    
@@ -41,7 +41,7 @@ To get started with MyAwesomeProject, follow these steps:
 
 3. **Navigate to the project folder**:
    
-   cd universityvoting
+   cd University_voting_system
 
 4. **Install dependencies**:
 
@@ -66,7 +66,7 @@ Import the SQL file:
 you can run the following command to import the schema from the database.sql file:
 
 
-mysql -u yourusername -p universityvoting < config/database.sql
+mysql -u yourusername -p University_voting_system < config/database.sql
 
 
 Replace yourusername with your MySQL username, and university_voting with the name of the database you just created.
